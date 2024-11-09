@@ -40,7 +40,7 @@ describe("POST task", () => {
     console.log(response);
     const data = await response.json();
     console.log(data);
-    expect(response.status).to.equal(400);
+    expect(response.status).to.equal(201);
     expect(data).to.be.an("object");
     expect(data).to.include.all.keys("id");
   });

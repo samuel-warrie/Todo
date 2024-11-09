@@ -3,6 +3,9 @@ import { UserContext } from "./UserContext";
 import axios from "axios";
 
 const url = process.env.REACT_APP_API_URL;
+console.log("URL", url); 
+console.log("Environment Variables at App Start:", process.env);
+
 
 export default function UserProvider({ children }) {
   const userFromSessionStorage = sessionStorage.getItem("user");
