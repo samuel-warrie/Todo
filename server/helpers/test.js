@@ -1,34 +1,3 @@
-// import fs from 'fs';
-// import path from 'path';
-// import pool from './db.js';
-// import { hash } from 'bcrypt';       // Import hash from bcrypt
-// import jwt from 'jsonwebtoken';       // Import JWT for generating tokens
-
-// const { sign } = jwt;
-// const __dirname = import.meta.dirname
-
-// // Function to initialize the test database
-// const initializeTestDb = () => {
-//     const sql = fs.readFileSync(path.resolve(__dirname, '../todo.sql'), 'utf-8');
-//         pool.query(sql);  // Execute SQL commands to set up the test database
-//         console.log("Test database initialized.");
-  
-// };
-
-// // Function to insert a test user
-// const insertTestUser = (email, password) => {
-//     hash(password, 10, (error, hashedPassword) => {
-//             pool.query('insert into account (email, password) values ($1, $2)', [email, hashedPassword])
-//         });
-// }
-
-// // Function to get a JWT token for testing
-// const getToken = (email) => {   
-//     return sign({ user: email }, process.env.JWT_SECRET_KEY);
-// };
-
-// export { initializeTestDb, insertTestUser, getToken };
-
 import fs from "fs";
 import path from "path";
 

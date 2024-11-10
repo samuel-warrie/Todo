@@ -19,11 +19,12 @@ app.use("/user", userRouter);
 
 // Error-handling middleware
 app.use((error, req, res, next) => {
-  const statusCode = error.status || 500;
+  const statusCode = error.statusCode || 400;
   res.status(statusCode).json({
-    error: error.message ,
+    error: error.message || "Internal Server Error",
   });
 });
+
 
 // Start the server
 app.listen(port, () => {

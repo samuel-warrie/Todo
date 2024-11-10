@@ -6,20 +6,25 @@ import { selectUserByEmail } from "../models/User.js";
 const { sign } = pgk;
 
 const postRegistration = async (req, res, next) => {
-  console.log("*******************************************************");
   try {
     if (!req.body.email || req.body.email.length === 0)
       return next(new ApiError("Invalid email for user", 400));
     if (!req.body.password || req.body.password.length < 8)
-      return next(new ApiError("Invalid password for user", 400));
+      return next(
+        new ApiError("Password must be at least 8 characters. ", 400)
+      );
 
     const hashedPassword = await hash(req.body.password, 10);
     const userFromDb = await insertUser(req.body.email, hashedPassword);
     const user = userFromDb.rows[0];
     return res.status(201).json(createUserObject(user.id, user.email));
   } catch (error) {
-    return next(error);
+    if (error.code === "23505") {
+      return next(new ApiError("Email already exists", 400)); // Return 400 for duplicate email
+    }
+    return next(error); // Forward other errors
   }
+
 };
 
 const postLogin = async (req, res, next) => {

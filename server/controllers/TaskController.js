@@ -23,8 +23,11 @@ const postTask = async (req, res, next) => {
     const result = await insertTask(req.body.description);
     return res.status(200).json({ id: result.rows[0].id });
   } catch (error) {
-    return next(error);
+    if (error.statusCode) return next(error); // Forward known validation errors
+    console.error("Unexpected error in postTask:", error);
+    return next(new ApiError("Something went wrong", 500)); // Use ApiError for fallback
   }
+
 };
 
 const taskDelete = async (req, res, next) => {
